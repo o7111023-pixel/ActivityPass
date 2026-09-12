@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Scanner · ActivityPass{% endblock %}
+{% block content %}
+<div class="scanner-page">
+  <div class="page-heading"><div><span class="eyebrow">ORGANIZER TOOL</span><h1>Pass Scanner</h1><p>Scan a Code 128 barcode with your phone camera or enter a pass code manually.</p></div></div>
+  <div class="scanner-grid">
+    <section class="scanner-card">
+      <div id="scanner-video-wrap" class="scanner-video-wrap">
+        <video id="scanner-video" playsinline></video>
+        <div class="scanner-frame"></div>
+      </div>
+      <div class="scanner-actions">
+        <button type="button" class="btn" id="start-scanner">Scan with camera</button>
+        <button type="button" class="btn secondary" id="stop-scanner">Stop</button>
+      </div>
+      <p id="scanner-message" class="scanner-message">Camera scanning requires HTTPS or localhost and permission to use the camera.</p>
+    </section>
+    <section class="scanner-card">
+      <span class="eyebrow">MANUAL CHECK</span>
+      <h2>Enter pass code</h2>
+      <form method="post" id="scanner-form">
+        <input id="scanner-code" name="code" placeholder="AP-XXXXXXXXXX or scanned URL" required>
+        <button class="btn btn-wide">Validate pass</button>
+      </form>
+      {% if result %}<div class="{{ 'success' if result.ok else 'alert' }}"><h2>{{ result.title }}</h2><p>{{ result.message }}</p></div>{% endif %}
+    </section>
+  </div>
+</div>
+<script src="https://unpkg.com/@zxing/browser@0.1.5/umd/index.min.js"></script>
+<script src="/static/js/scanner.js"></script>
+{% endblock %}

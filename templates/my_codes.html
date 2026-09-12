@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}My Codes · ActivityPass{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div>
+    <span class="eyebrow">ACCESS CENTER</span>
+    <h1>My codes</h1>
+    <p>All active QR and barcode credentials in one place. Open a code when you arrive at an activity.</p>
+  </div>
+  <div class="wallet-balance"><small>AVAILABLE</small><strong>{{ "{:,.0f}".format(balance) }} AP</strong></div>
+</div>
+
+<div class="code-access">
+  <div>
+    <span class="eyebrow">READY TO SCAN</span>
+    <h2>Digital access</h2>
+    <p>Each active membership has its own QR code and barcode. Your passes and your access codes are now separate.</p>
+  </div>
+  <a class="btn secondary" href="/my-passes">View my passes →</a>
+</div>
+
+<div class="code-grid">
+  {% for p in passes %}
+  <article class="code-card">
+    <div class="code-card-top">
+      <span class="tag">{{ p.activity.category }}</span>
+      <span class="status-pill">{{ p.status }}</span>
+    </div>
+    <h2>{{ p.activity.name }}</h2>
+    <p>{{ p.activity.provider.name }}</p>
+    <div class="code-preview"><img src="/static/generated/{{ p.code }}_qr.png" alt="QR code"></div>
+    <div class="code-card-meta"><span>{{ p.code }}</span><span>{{ p.start_date }} → {{ p.end_date }}</span></div>
+    <a class="btn" href="/passes/{{ p.id }}">Open full code →</a>
+  </article>
+  {% else %}
+  <div class="empty card">
+    <h2>No active codes yet</h2>
+    <p>Buy a membership and your QR/barcode access will appear here.</p>
+    <a class="btn" href="/activities">Explore experiences</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

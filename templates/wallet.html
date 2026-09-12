@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block title %}Wallet · ActivityPass{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+
+    <div>
+        <span class="eyebrow">YOUR MONEY, YOUR WAY</span>
+
+        <h1>My wallet</h1>
+
+        <p>
+            Your private AP account and virtual ActivityPass card.
+            AP is an internal portfolio currency.
+        </p>
+    </div>
+
+    <div class="wallet-balance">
+        <small>AVAILABLE</small>
+
+        <strong>
+            {{"{:,.0f}".format(balance)}} AP
+        </strong>
+    </div>
+
+</div>
+
+
+<div class="wallet-grid">
+
+    <!-- VIRTUAL CARD -->
+    <section class="virtual-card">
+
+        <div class="vc-top">
+            <span>ActivityPass</span>
+            <span>VIRTUAL · DEMO</span>
+        </div>
+
+
+        <div class="vc-chip">
+            AP
+        </div>
+
+
+        <div class="vc-number-row">
+
+            <div class="vc-number">
+                {{card_display}}
+            </div>
+
+
+            <!-- CSP SAFE COPY BUTTON -->
+            <button
+                type="button"
+                class="copy-card-btn"
+                data-card-number="{{ card.card_number }}"
+            >
+                Copy
+            </button>
+
+        </div>
+
+
+        <div class="vc-bottom">
+
+            <div>
+                <small>ACCOUNT HOLDER</small>
+                <br>
+                <b>{{card.holder_name}}</b>
+            </div>
+
+
+            <div>
+                <small>CURRENCY</small>
+                <br>
+                <b>AP</b>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STREAK REWARDS -->
+    <section class="wallet-side card">
+
+        <span class="eyebrow">
+            STREAK REWARDS
+        </span>
+
+
+        <h2>
+            Grow your balance every day.
+        </h2>
+
+
+        <p>
+            Keep your daily check-in streak.
+            The reward grows by 700 AP for every consecutive day —
+            with no cap.
+        </p>
+
+
+        <div class="wallet-stat">
+
+            <b>∞</b>
+
+            <span>
+                maximum reward ∞
+            </span>
+
+        </div>
+
+
+        <a
+            class="btn secondary"
+            href="/calendar"
+        >
+            Open check-in calendar →
+        </a>
+
+    </section>
+
+</div>
+
+
+<!-- TRANSACTION HISTORY -->
+
+<section class="section-head">
+
+    <div>
+
+        <span class="eyebrow">
+            ACCOUNT ACTIVITY
+        </span>
+
+        <h2>
+            Transaction history
+        </h2>
+
+    </div>
+
+</section>
+
+
+<div class="card table-wrap">
+
+    <table>
+
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Balance</th>
+        </tr>
+
+
+        {% for t in transactions %}
+
+        <tr>
+
+            <td>
+                {{t.created_at.strftime("%d.%m.%Y %H:%M")}}
+            </td>
+
+
+            <td>
+
+                <span class="type-pill">
+                    {{t.transaction_type}}
+                </span>
+
+            </td>
+
+
+            <td>
+                {{t.description}}
+            </td>
+
+
+            <td
+                class="amount {% if t.amount<0 %}negative{% endif %}"
+            >
+
+                {% if t.amount>0 %}
+                    +
+                {% endif %}
+
+                {{"{:,.0f}".format(t.amount)}} AP
+
+            </td>
+
+
+            <td>
+                {{"{:,.0f}".format(t.balance_after)}} AP
+            </td>
+
+        </tr>
+
+
+        {% else %}
+
+        <tr>
+
+            <td colspan="5">
+                No transactions.
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+{% endblock %}

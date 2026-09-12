@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block title %}Explore · ActivityPass{% endblock %}{% block content %}
+<div class="page-heading"><div><span class="eyebrow">DISCOVER YOUR NEXT THING</span><h1>Explore experiences</h1><p>From everyday fitness to premium adventures. Your liked experiences always rise to the top.</p></div><div class="mini-balance">{{ user.full_name }} · AP wallet</div></div>
+<form class="filters"><input name="q" value="{{q}}" placeholder="Search activities..."><select name="category"><option value="">All categories</option>{% for c in categories %}<option value="{{c}}" {% if category==c %}selected{% endif %}>{{c}}</option>{% endfor %}</select><button class="btn">Search</button></form>
+<div class="grid">{% for a in activities %}
+<article class="activity-card {% if a.id in favorites %}is-favorite{% endif %}{% if a.price >= 50000 %} premium-card{% endif %}">
+  <div class="activity-card-top"><span class="tag">{{a.category}}</span><form method="post" action="/activities/{{a.id}}/favorite"><button class="heart-btn {% if a.id in favorites %}liked{% endif %}" title="{% if a.id in favorites %}Remove from favorites{% else %}Add to favorites{% endif %}">{% if a.id in favorites %}♥{% else %}♡{% endif %}</button></form></div>
+  <h3>{{a.name}}</h3><p>{{a.description}}</p>
+  <div class="activity-meta"><span>◷ {{a.start_time}}–{{a.end_time}}</span><span>◫ {{a.schedule_days or 'Every day'}}</span></div>
+  <div class="activity-bottom"><strong>{{"{:,.0f}".format(a.price)}} AP</strong><a class="btn secondary" href="/activities/{{a.id}}">View</a></div>
+</article>
+{% else %}<div class="empty card"><h2>No activities found</h2><p>Try another search or category.</p></div>{% endfor %}</div>
+{% endblock %}

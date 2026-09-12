@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}ActivityPass{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body class="app-body">
+<aside class="sidebar">
+  <a class="logo" href="/dashboard"><span>AP</span><div>ActivityPass<small>personal activity wallet</small></div></a>
+  <div class="sidebar-label">WORKSPACE</div>
+  <nav class="side-nav">
+    <a href="/dashboard">⌂ <span>Dashboard</span></a><a href="/activities">⌕ <span>Explore</span></a><a href="/my-passes">▣ <span>My Passes</span></a><a href="/my-codes">▤ <span>My Codes</span></a><a href="/calendar">▦ <span>Calendar</span></a>
+    <a href="/wallet">◈ <span>Wallet</span></a><a href="/profile">○ <span>Profile</span></a>
+    {% if user is defined and user.role == "ADMIN" %}<a href="/admin">⚙ <span>Admin</span></a>{% endif %}
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="side-balance"><small>YOUR BALANCE</small><strong>{{ '{:,.0f}'.format(balance) if balance is defined else '—' }} <em>AP</em></strong><a href="/wallet">Open wallet →</a></div>
+    <form method="post" action="/logout"><button class="logout-btn">↪ Log out</button></form>
+  </div>
+</aside>
+<div class="mobile-top"><a class="logo" href="/dashboard"><span>AP</span><b>ActivityPass</b></a><a href="/wallet" class="mobile-balance">{{ '{:,.0f}'.format(balance) if balance is defined else '—' }} AP</a></div>
+<main class="main-area"><div class="page-shell">{% block content %}{% endblock %}</div>
+<footer class="site-footer"><div class="footer-inner"><div><strong>ActivityPass</strong><p>Created by <b>Oleh Murachov</b> as a portfolio project demonstrating a modern activity platform with virtual AP credits, memberships, QR/barcode passes and a personal user space. For contact and collaboration: <a href="https://t.me/oleh_murachov" target="_blank" rel="noopener noreferrer">@oleh_murachov on Telegram</a>.</p></div><div class="footer-tech"><span>Python</span><span>FastAPI</span><span>SQLAlchemy</span><span>Jinja2</span><span>SQLite / PostgreSQL</span></div></div><div class="footer-bottom">© 2026 Oleh Murachov · Portfolio project · AP is a virtual demo currency · No real-money payments</div></footer></main>
+<script src="/static/js/main.js"></script></body></html>

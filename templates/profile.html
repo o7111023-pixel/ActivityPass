@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Profile · ActivityPass{% endblock %}{% block content %}
+<div class="page-heading"><div><span class="eyebrow">PERSONAL INFORMATION</span><h1>My profile</h1><p>Only your own information is shown here.</p></div><div class="mini-balance">{{ balance }} AP</div></div>
+{% if request.query_params.get("saved") %}<div class="success">Profile updated.</div>{% endif %}
+<div class="profile-grid">
+  <section class="card profile-card"><div class="avatar">{{ user.full_name[:1].upper() }}</div><h2>{{ user.full_name }}</h2><p class="muted">{{ user.email }}</p><span class="tag">{{ user.role }}</span><div class="profile-meta"><div><small>Member since</small><b>{{ user.created_at.strftime('%d.%m.%Y') }}</b></div><div><small>Preferred time</small><b>{{ user.preferred_time }}</b></div></div></section>
+  <section class="card"><h2>Edit my information</h2><form method="post" class="profile-form"><label>Full name<input name="full_name" value="{{ user.full_name }}" required></label><label>Email<input value="{{ user.email }}" disabled></label><label>Hobbies<input name="hobbies" value="{{ user.hobbies or '' }}" placeholder="Yoga, music, climbing..."></label><label>Preferred activity time<select name="preferred_time">{% for t in ['Morning','Afternoon','Evening','Flexible'] %}<option value="{{t}}" {% if user.preferred_time == t %}selected{% endif %}>{{t}}</option>{% endfor %}</select></label><button class="btn" type="submit">Save profile</button></form></section>
+</div>
+{% endblock %}

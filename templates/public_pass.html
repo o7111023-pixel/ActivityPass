@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="referrer" content="no-referrer">
+  <title>ActivityPass</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="public-pass-page">
+  <main class="public-pass-wrap">
+    <section class="public-pass-card">
+      <div class="public-pass-brand"><span>AP</span> ActivityPass</div>
+      <span class="eyebrow">PASS CHECK</span>
+      <div class="public-status {{ 'public-status-ok' if pass.status == 'ACTIVE' else 'public-status-bad' }}">{{ pass.status }}</div>
+      <h1>{{ pass.activity.name }}</h1>
+      <p class="muted">{{ pass.activity.provider.name }}</p>
+      <div class="public-pass-grid">
+        <div><small>WHEN</small><strong>{{ pass.activity.schedule_days or 'Every day' }} · {{ pass.activity.start_time }}–{{ pass.activity.end_time }}</strong></div>
+        <div><small>VALID</small><strong>{{ pass.start_date }} → {{ pass.end_date }}</strong></div>
+        <div><small>WHERE</small><strong>{{ pass.activity.provider.address }}, {{ pass.activity.provider.city }}</strong></div>
+        <div><small>DESCRIPTION</small><strong>{{ pass.activity.description }}</strong></div>
+      </div>
+      <div class="public-pass-code"><small>PASS CODE</small><b>{{ pass.code }}</b></div>
+      <p class="public-pass-note">This public verification page shows pass information only. No account, wallet or personal profile data is displayed.</p>
+    </section>
+  </main>
+</body>
+</html>
