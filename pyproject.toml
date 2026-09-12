@@ -15,8 +15,6 @@ dependencies = [
   "psycopg[binary]>=3.2"
 ]
 
-[tool.vercel]
-entrypoint = "app.main:app"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
