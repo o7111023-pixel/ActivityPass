@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block title %}Fortune Wheel{% endblock %}
+
+{% block content %}
+
+<link
+    rel="stylesheet"
+    href="/static/css/fortune_wheel.css"
+>
+
+<div class="fortune-page">
+
+    {% if not unlocked %}
+
+        <div class="fortune-locked">
+
+            <div class="locked-icon">
+                🔒
+            </div>
+
+            <h1>🎡 Fortune Wheel</h1>
+
+            <h2>Wheel Locked</h2>
+
+            <p>
+                Reach <strong>30,000 AP</strong> at least once
+                to unlock the Fortune Wheel.
+            </p>
+
+            <div class="unlock-progress">
+
+                <div class="unlock-progress-text">
+
+                    <span>
+                        Your highest balance
+                    </span>
+
+                    <strong>
+                        {{ "{:,.0f}".format(balance) }} AP
+                    </strong>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width: {{ [((balance / unlock_balance) * 100), 100] | min }}%;"
+                    ></div>
+
+                </div>
+
+                <div class="unlock-target">
+
+                    <span>
+                        0 AP
+                    </span>
+
+                    <span>
+                        {{ "{:,.0f}".format(unlock_balance) }} AP
+                    </span>
+
+                </div>
+
+            </div>
+
+            <p class="locked-hint">
+                Once you reach 30,000 AP,
+                the wheel stays unlocked permanently.
+            </p>
+
+        </div>
+
+    {% else %}
+
+        <div class="fortune-header">
+
+            <h1>
+                🎡 Fortune Wheel
+            </h1>
+
+            <p>
+                Spin the wheel and try your luck!
+            </p>
+
+        </div>
+
+
+        <div class="fortune-balance">
+
+            <span>
+                Your balance
+            </span>
+
+            <strong id="fortuneBalance">
+                {{ "{:,.0f}".format(balance) }} AP
+            </strong>
+
+        </div>
+
+
+        <div class="fortune-wheel-container">
+
+            <div class="wheel-pointer">
+                ▼
+            </div>
+
+
+            <div
+                class="fortune-wheel"
+                id="fortuneWheel"
+            >
+
+                <!-- Sector 1 -->
+                <div class="wheel-label label-0">
+                    0x
+                </div>
+
+
+                <!-- Sector 2 -->
+                <div class="wheel-label label-01">
+                    0.1x
+                </div>
+
+
+                <!-- Sector 3 -->
+                <div class="wheel-label label-05">
+                    0.5x
+                </div>
+
+
+                <!-- Sector 4 -->
+                <div class="wheel-label label-1a">
+                    1x
+                </div>
+
+
+                <!-- Sector 5 -->
+                <div class="wheel-label label-1b">
+                    1x
+                </div>
+
+
+                <!-- Sector 6 -->
+                <div class="wheel-label label-15">
+                    1.5x
+                </div>
+
+
+                <!-- Sector 7 -->
+                <div class="wheel-label label-2a">
+                    2x
+                </div>
+
+
+                <!-- Sector 8 -->
+                <div class="wheel-label label-2b">
+                    2x
+                </div>
+
+
+                <!-- Sector 9 -->
+                <div class="wheel-label label-3">
+                    3x
+                </div>
+
+
+                <div class="wheel-center">
+                    SPIN
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="fortune-result"
+            id="fortuneResult"
+        >
+            Choose your bet and spin the wheel
+        </div>
+
+
+        <div class="fortune-bets">
+
+            <button
+                class="bet-button"
+                data-bet="10000"
+            >
+                10,000 AP
+            </button>
+
+            <button
+                class="bet-button"
+                data-bet="20000"
+            >
+                20,000 AP
+            </button>
+
+            <button
+                class="bet-button"
+                data-bet="50000"
+            >
+                50,000 AP
+            </button>
+
+        </div>
+
+
+        <button
+            class="spin-button"
+            id="spinButton"
+        >
+            🎡 SPIN
+        </button>
+
+    {% endif %}
+
+</div>
+
+
+{% if unlocked %}
+
+<script
+    src="/static/js/fortune_wheel.js"
+></script>
+
+{% endif %}
+
+{% endblock %}

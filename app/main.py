@@ -18,6 +18,7 @@ from app.models.wallet import WalletTransaction
 from app.security import hash_password
 from app.services.rewards import grant_welcome_reward
 from app.services.cards import ensure_virtual_card
+from app.api.fortune_wheel import router as fortune_wheel_router
 
 
 BASE = Path(__file__).resolve().parent.parent
@@ -370,7 +371,7 @@ def dashboard(request: Request):
         db.close()
 
 
-from app.api import auth, activities, passes, scanner, admin, wallet, profile, tasks, codes
+from app.api import auth, activities, passes, scanner, admin, wallet, profile, tasks, codes, fortune_wheel
 
 app.include_router(auth.router)
 app.include_router(activities.router)
@@ -381,3 +382,4 @@ app.include_router(wallet.router)
 app.include_router(profile.router)
 app.include_router(tasks.router)
 app.include_router(codes.router)
+app.include_router(fortune_wheel_router)

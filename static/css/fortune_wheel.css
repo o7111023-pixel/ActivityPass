@@ -1,0 +1,744 @@
+/* =========================================
+   FORTUNE WHEEL PAGE
+   ========================================= */
+
+.fortune-page {
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 40px 20px 70px;
+    text-align: center;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.fortune-header {
+    margin-bottom: 25px;
+}
+
+.fortune-header h1 {
+    margin: 0 0 8px;
+    font-size: 38px;
+    font-weight: 800;
+}
+
+.fortune-header p {
+    margin: 0;
+    opacity: 0.65;
+    font-size: 15px;
+}
+
+
+/* =========================================
+   BALANCE
+   ========================================= */
+
+.fortune-balance {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 20px auto 30px;
+}
+
+.fortune-balance span {
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+.fortune-balance strong {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+
+/* =========================================
+   WHEEL CONTAINER
+   ========================================= */
+
+.fortune-wheel-container {
+    position: relative;
+    width: min(520px, 88vw);
+    aspect-ratio: 1;
+    margin: 35px auto 40px;
+}
+
+
+/* =========================================
+   WHEEL
+   9 SECTORS × 40 DEGREES
+   ========================================= */
+
+.fortune-wheel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            from -20deg,
+
+            #050505 0deg 40deg,
+            #c1121f 40deg 80deg,
+
+            #050505 80deg 120deg,
+            #c1121f 120deg 160deg,
+
+            #050505 160deg 200deg,
+            #c1121f 200deg 240deg,
+
+            #050505 240deg 280deg,
+            #c1121f 280deg 320deg,
+
+            #ffffff 320deg 360deg
+        );
+
+    border: 10px solid #050505;
+
+    box-shadow:
+        0 0 0 4px #c1121f,
+        0 0 0 8px #050505,
+        0 20px 60px rgba(0, 0, 0, 0.75);
+
+    overflow: hidden;
+
+    transform: rotate(0deg);
+
+    transition:
+        transform 8s cubic-bezier(0.12, 0.8, 0.18, 1);
+}
+
+
+/* =========================================
+   SECTOR DIVIDERS
+   ========================================= */
+
+.fortune-wheel::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: 50%;
+
+    background:
+        repeating-conic-gradient(
+            from -20deg,
+            transparent 0deg 39deg,
+            rgba(255, 255, 255, 0.9) 39deg 40deg
+        );
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   WHEEL LABELS
+   ========================================= */
+
+.wheel-label {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 90px;
+    height: 90px;
+
+    margin-left: -45px;
+    margin-top: -45px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    padding-top: 7px;
+
+    font-size: 22px;
+    font-weight: 900;
+
+    color: white;
+
+    text-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.9);
+
+    transform-origin: 45px 45px;
+
+    z-index: 3;
+
+    pointer-events: none;
+}
+
+
+/*
+    9 sectors
+    Each sector = 40 degrees
+
+    The labels are positioned at the
+    center of each sector.
+*/
+
+.wheel-label.label-0 {
+    transform:
+        rotate(0deg)
+        translateY(-175px)
+        rotate(0deg);
+}
+
+.wheel-label.label-01 {
+    transform:
+        rotate(40deg)
+        translateY(-175px)
+        rotate(-40deg);
+}
+
+.wheel-label.label-05 {
+    transform:
+        rotate(80deg)
+        translateY(-175px)
+        rotate(-80deg);
+}
+
+.wheel-label.label-1a {
+    transform:
+        rotate(120deg)
+        translateY(-175px)
+        rotate(-120deg);
+}
+
+.wheel-label.label-1b {
+    transform:
+        rotate(160deg)
+        translateY(-175px)
+        rotate(-160deg);
+}
+
+.wheel-label.label-15 {
+    transform:
+        rotate(200deg)
+        translateY(-175px)
+        rotate(-200deg);
+}
+
+.wheel-label.label-2a {
+    transform:
+        rotate(240deg)
+        translateY(-175px)
+        rotate(-240deg);
+}
+
+.wheel-label.label-2b {
+    transform:
+        rotate(280deg)
+        translateY(-175px)
+        rotate(-280deg);
+}
+
+.wheel-label.label-3 {
+    transform:
+        rotate(320deg)
+        translateY(-175px)
+        rotate(-320deg);
+
+    color: #050505;
+
+    text-shadow: none;
+}
+
+
+/* =========================================
+   CENTER
+   ========================================= */
+
+.wheel-center {
+    position: absolute;
+
+    z-index: 10;
+
+    top: 50%;
+    left: 50%;
+
+    width: 105px;
+    height: 105px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle,
+            #2a2a2a 0%,
+            #0b0b0b 65%,
+            #000000 100%
+        );
+
+    border: 6px solid #c1121f;
+
+    box-shadow:
+        0 0 0 5px #050505,
+        0 8px 25px rgba(0, 0, 0, 0.7),
+        inset 0 0 20px rgba(255, 255, 255, 0.08);
+
+    color: white;
+
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   POINTER
+   ========================================= */
+
+.wheel-pointer {
+    position: absolute;
+
+    z-index: 20;
+
+    top: -18px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 0;
+    height: 0;
+
+    border-left: 23px solid transparent;
+    border-right: 23px solid transparent;
+
+    border-top: 50px solid #ffffff;
+
+    filter:
+        drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
+}
+
+
+/* =========================================
+   RESULT
+   ========================================= */
+
+.fortune-result {
+    min-height: 60px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 6px;
+
+    margin: 20px auto 25px;
+
+    font-size: 18px;
+}
+
+.fortune-result strong {
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.fortune-result span {
+    font-size: 14px;
+    opacity: 0.65;
+}
+
+
+/* =========================================
+   BET BUTTONS
+   ========================================= */
+
+.fortune-bets {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.bet-button {
+    min-width: 135px;
+
+    padding: 14px 22px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    color: inherit;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.bet-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    background:
+        rgba(193, 18, 31, 0.18);
+
+    border-color:
+        rgba(193, 18, 31, 0.7);
+}
+
+.bet-button.selected {
+    transform: translateY(-2px);
+
+    background:
+        #c1121f;
+
+    border-color:
+        #ff3345;
+
+    box-shadow:
+        0 6px 20px rgba(193, 18, 31, 0.35);
+}
+
+.bet-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   SPIN BUTTON
+   ========================================= */
+
+.spin-button {
+    min-width: 240px;
+
+    padding: 17px 32px;
+
+    border: 2px solid #c1121f;
+
+    border-radius: 14px;
+
+    background:
+        #c1121f;
+
+    color: white;
+
+    font-size: 18px;
+    font-weight: 900;
+
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 30px rgba(193, 18, 31, 0.35);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.spin-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    background:
+        #e51b2a;
+
+    box-shadow:
+        0 12px 35px rgba(193, 18, 31, 0.5);
+}
+
+.spin-button:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.spin-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+/* =========================================
+   LOCKED PAGE
+   ========================================= */
+
+.fortune-locked {
+    max-width: 620px;
+
+    margin: 80px auto;
+
+    padding: 50px 35px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(193, 18, 31, 0.08),
+            rgba(255, 255, 255, 0.03)
+        );
+
+    border:
+        1px solid rgba(193, 18, 31, 0.25);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.locked-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+.fortune-locked h1 {
+    margin-bottom: 25px;
+    font-size: 36px;
+}
+
+.fortune-locked h2 {
+    margin-bottom: 10px;
+    color: #c1121f;
+}
+
+.fortune-locked p {
+    opacity: 0.7;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   UNLOCK PROGRESS
+   ========================================= */
+
+.unlock-progress {
+    margin: 30px 0;
+}
+
+.unlock-progress-text {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.unlock-progress-text span {
+    opacity: 0.6;
+}
+
+.unlock-progress-text strong {
+    font-size: 16px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+}
+
+.progress-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8b0b16,
+            #c1121f,
+            #ff3345
+        );
+
+    box-shadow:
+        0 0 15px rgba(193, 18, 31, 0.5);
+
+    transition:
+        width 0.5s ease;
+}
+
+.unlock-target {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 7px;
+
+    font-size: 12px;
+
+    opacity: 0.5;
+}
+
+.locked-hint {
+    font-size: 13px;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .fortune-page {
+        padding: 25px 12px 45px;
+    }
+
+    .fortune-header h1 {
+        font-size: 29px;
+    }
+
+    .fortune-wheel-container {
+        width: min(400px, 92vw);
+        margin-top: 25px;
+    }
+
+    .fortune-wheel {
+        border-width: 7px;
+    }
+
+    .wheel-center {
+        width: 80px;
+        height: 80px;
+
+        font-size: 14px;
+
+        border-width: 5px;
+    }
+
+    .wheel-pointer {
+        border-left-width: 18px;
+        border-right-width: 18px;
+        border-top-width: 38px;
+
+        top: -12px;
+    }
+
+    .wheel-label {
+        font-size: 16px;
+    }
+
+    .wheel-label.label-0,
+    .wheel-label.label-01,
+    .wheel-label.label-05,
+    .wheel-label.label-1a,
+    .wheel-label.label-1b,
+    .wheel-label.label-15,
+    .wheel-label.label-2a,
+    .wheel-label.label-2b,
+    .wheel-label.label-3 {
+        margin-left: -35px;
+        margin-top: -35px;
+    }
+
+    .wheel-label.label-0 {
+        transform:
+            rotate(0deg)
+            translateY(-135px)
+            rotate(0deg);
+    }
+
+    .wheel-label.label-01 {
+        transform:
+            rotate(40deg)
+            translateY(-135px)
+            rotate(-40deg);
+    }
+
+    .wheel-label.label-05 {
+        transform:
+            rotate(80deg)
+            translateY(-135px)
+            rotate(-80deg);
+    }
+
+    .wheel-label.label-1a {
+        transform:
+            rotate(120deg)
+            translateY(-135px)
+            rotate(-120deg);
+    }
+
+    .wheel-label.label-1b {
+        transform:
+            rotate(160deg)
+            translateY(-135px)
+            rotate(-160deg);
+    }
+
+    .wheel-label.label-15 {
+        transform:
+            rotate(200deg)
+            translateY(-135px)
+            rotate(-200deg);
+    }
+
+    .wheel-label.label-2a {
+        transform:
+            rotate(240deg)
+            translateY(-135px)
+            rotate(-240deg);
+    }
+
+    .wheel-label.label-2b {
+        transform:
+            rotate(280deg)
+            translateY(-135px)
+            rotate(-280deg);
+    }
+
+    .wheel-label.label-3 {
+        transform:
+            rotate(320deg)
+            translateY(-135px)
+            rotate(-320deg);
+    }
+
+    .fortune-balance strong {
+        font-size: 24px;
+    }
+
+    .bet-button {
+        min-width: 105px;
+        padding: 12px 14px;
+    }
+
+    .spin-button {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .fortune-locked {
+        margin: 45px auto;
+        padding: 35px 20px;
+    }
+
+    .fortune-locked h1 {
+        font-size: 29px;
+    }
+}

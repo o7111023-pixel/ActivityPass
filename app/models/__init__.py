@@ -9,3 +9,4 @@ from app.models.virtual_card import VirtualCard
 from app.models.favorite import Favorite
 from app.models.activity_view import ActivityView
 from app.models.focus_session import FocusSession
+from app.models.fortune_wheel import FortuneWheelSpin
