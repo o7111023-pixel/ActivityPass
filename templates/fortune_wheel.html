@@ -11,217 +11,409 @@
 
 <div class="fortune-page">
 
-    {% if not unlocked %}
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-        <div class="fortune-locked">
+    <header class="fortune-header">
 
-            <div class="locked-icon">
-                🔒
-            </div>
-
+        <div>
             <h1>🎡 Fortune Wheel</h1>
 
-            <h2>Wheel Locked</h2>
-
             <p>
-                Reach <strong>30,000 AP</strong> at least once
-                to unlock the Fortune Wheel.
+                Choose your bet and try your luck.
             </p>
-
-            <div class="unlock-progress">
-
-                <div class="unlock-progress-text">
-
-                    <span>
-                        Your highest balance
-                    </span>
-
-                    <strong>
-                        {{ "{:,.0f}".format(balance) }} AP
-                    </strong>
-
-                </div>
-
-                <div class="progress-bar">
-
-                    <div
-                        class="progress-fill"
-                        style="width: {{ [((balance / unlock_balance) * 100), 100] | min }}%;"
-                    ></div>
-
-                </div>
-
-                <div class="unlock-target">
-
-                    <span>
-                        0 AP
-                    </span>
-
-                    <span>
-                        {{ "{:,.0f}".format(unlock_balance) }} AP
-                    </span>
-
-                </div>
-
-            </div>
-
-            <p class="locked-hint">
-                Once you reach 30,000 AP,
-                the wheel stays unlocked permanently.
-            </p>
-
-        </div>
-
-    {% else %}
-
-        <div class="fortune-header">
-
-            <h1>
-                🎡 Fortune Wheel
-            </h1>
-
-            <p>
-                Spin the wheel and try your luck!
-            </p>
-
         </div>
 
 
-        <div class="fortune-balance">
+        <!-- Highest balance — small corner card -->
+
+        <div class="fortune-highest-balance">
 
             <span>
-                Your balance
+                Highest balance
             </span>
 
-            <strong id="fortuneBalance">
-                {{ "{:,.0f}".format(balance) }} AP
+            <strong>
+                {{ "{:,.0f}".format(highest_balance) }} AP
             </strong>
 
         </div>
 
-
-        <div class="fortune-wheel-container">
-
-            <div class="wheel-pointer">
-                ▼
-            </div>
+    </header>
 
 
-            <div
-                class="fortune-wheel"
-                id="fortuneWheel"
-            >
+    <!-- =====================================================
+         CURRENT BALANCE
+    ====================================================== -->
 
-                <!-- Sector 1 -->
-                <div class="wheel-label label-0">
-                    0x
-                </div>
+    <div class="fortune-balance">
 
+        <span>
+            Your balance
+        </span>
 
-                <!-- Sector 2 -->
-                <div class="wheel-label label-01">
-                    0.1x
-                </div>
+        <strong id="fortuneBalance">
+            {{ "{:,.0f}".format(balance) }} AP
+        </strong>
 
-
-                <!-- Sector 3 -->
-                <div class="wheel-label label-05">
-                    0.5x
-                </div>
+    </div>
 
 
-                <!-- Sector 4 -->
-                <div class="wheel-label label-1a">
-                    1x
-                </div>
+    <!-- =====================================================
+         CURRENT WHEEL LEVEL
+    ====================================================== -->
 
+    <div
+        class="wheel-level-info"
+        id="wheelLevelInfo"
+    >
 
-                <!-- Sector 5 -->
-                <div class="wheel-label label-1b">
-                    1x
-                </div>
-
-
-                <!-- Sector 6 -->
-                <div class="wheel-label label-15">
-                    1.5x
-                </div>
-
-
-                <!-- Sector 7 -->
-                <div class="wheel-label label-2a">
-                    2x
-                </div>
-
-
-                <!-- Sector 8 -->
-                <div class="wheel-label label-2b">
-                    2x
-                </div>
-
-
-                <!-- Sector 9 -->
-                <div class="wheel-label label-3">
-                    3x
-                </div>
-
-
-                <div class="wheel-center">
-                    SPIN
-                </div>
-
-            </div>
-
+        <div
+            class="wheel-level-title"
+            id="wheelLevelTitle"
+        >
+            🎡 CHOOSE YOUR BET
         </div>
 
 
         <div
-            class="fortune-result"
-            id="fortuneResult"
+            class="wheel-level-subtitle"
+            id="wheelLevelSubtitle"
         >
-            Choose your bet and spin the wheel
+            Your bet determines the wheel
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         WHEEL
+    ====================================================== -->
+
+    <div class="fortune-wheel-container">
+
+
+        <!-- POINTER -->
+
+        <div class="wheel-pointer">
+            ▼
         </div>
 
 
-        <div class="fortune-bets">
+        <!-- =================================================
+             ROTATING WHEEL
+        ================================================== -->
 
-            <button
-                class="bet-button"
-                data-bet="10000"
-            >
-                10,000 AP
-            </button>
+        <div
+            class="fortune-wheel wheel-safe"
+            id="fortuneWheel"
+            data-level="SAFE"
+        >
 
-            <button
-                class="bet-button"
-                data-bet="20000"
-            >
-                20,000 AP
-            </button>
 
-            <button
-                class="bet-button"
-                data-bet="50000"
-            >
-                50,000 AP
-            </button>
+            <!-- =================================================
+                 12 UNIVERSAL PHYSICAL SECTORS
+
+                 These never change position.
+
+                 JavaScript changes only their content.
+            ================================================== -->
+
+            <div
+                class="wheel-label"
+                id="sector-0"
+            ></div>
+
+
+            <div
+                class="wheel-label"
+                id="sector-1"
+            ></div>
+
+
+            <div
+                class="wheel-label"
+                id="sector-2"
+            ></div>
+
+
+            <div
+                class="wheel-label"
+                id="sector-3"
+            ></div>
+
+
+            <div
+                class="wheel-label"
+                id="sector-4"
+            ></div>
+
+
+            <div
+                class="wheel-label"
+                id="sector-5"
+            ></div>
+
+
+            <div
+                class="wheel-label"
+                id="sector-6"
+            ></div>
+
+
+            <div
+                class="wheel-label"
+                id="sector-7"
+            ></div>
+
+
+            <div
+                class="wheel-label"
+                id="sector-8"
+            ></div>
+
+
+            <div
+                class="wheel-label"
+                id="sector-9"
+            ></div>
+
+
+            <div
+                class="wheel-label"
+                id="sector-10"
+            ></div>
+
+
+            <div
+                class="wheel-label"
+                id="sector-11"
+            ></div>
 
         </div>
 
 
-        <button
-            class="spin-button"
-            id="spinButton"
-        >
-            🎡 SPIN
-        </button>
+        <!-- =================================================
+             NON-ROTATING CENTER
 
-    {% endif %}
+             It is outside the rotating wheel so "SPIN"
+             always stays straight.
+        ================================================== -->
+
+        <div class="wheel-center">
+            SPIN
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         RESULT
+    ====================================================== -->
+
+    <div
+        class="fortune-result"
+        id="fortuneResult"
+    >
+        Choose your bet and spin the wheel
+    </div>
+
+
+    <!-- =====================================================
+         BET PICKER
+    ====================================================== -->
+
+    <div class="fortune-bet-picker">
+
+        <span class="bet-picker-label">
+            Bet
+        </span>
+
+
+        <details class="bet-dropdown">
+
+            <summary class="bet-dropdown-toggle">
+
+                <span id="selectedBetLabel">
+                    Choose bet
+                </span>
+
+                <span class="bet-dropdown-dots">
+                    ⋯
+                </span>
+
+            </summary>
+
+
+            <div class="bet-dropdown-menu">
+
+
+                <!-- =================================================
+                     SAFE
+                ================================================== -->
+
+                <div class="bet-group-title">
+                    🟢 SAFE
+                </div>
+
+
+                <button
+                    type="button"
+                    class="bet-button"
+                    data-bet="500"
+                    data-level="SAFE"
+                >
+                    500 AP
+                </button>
+
+
+                <button
+                    type="button"
+                    class="bet-button"
+                    data-bet="1500"
+                    data-level="SAFE"
+                >
+                    1,500 AP
+                </button>
+
+                <button
+                    type="button"
+                    class="bet-button"
+                    data-bet="2500"
+                    data-level="SAFE"
+                >
+                    2,500 AP
+                </button>
+
+                <button
+                    type="button"
+                    class="bet-button"
+                    data-bet="5000"
+                    data-level="SAFE"
+                >
+                    5,000 AP
+                </button>
+
+                <!-- =================================================
+                     RISK
+                ================================================== -->
+
+                <div class="bet-group-title">
+                    🟠 RISK
+                </div>
+
+
+                <button
+                    type="button"
+                    class="bet-button"
+                    data-bet="7500"
+                    data-level="RISK"
+                    {% if not risk_unlocked %}disabled{% endif %}
+                >
+                    7,500 AP
+                </button>
+
+
+                <button
+                    type="button"
+                    class="bet-button"
+                    data-bet="10000"
+                    data-level="RISK"
+                    {% if not risk_unlocked %}disabled{% endif %}
+                >
+                    10,000 AP
+                </button>
+
+                <button
+                    type="button"
+                    class="bet-button"
+                    data-bet="20000"
+                    data-level="RISK"
+                    {% if not risk_unlocked %}disabled{% endif %}
+                >
+                    20,000 AP
+                </button>
+
+                <button
+                    type="button"
+                    class="bet-button"
+                    data-bet="50000"
+                    data-level="RISK"
+                    {% if not risk_unlocked %}disabled{% endif %}
+                >
+                    50,000 AP
+                </button>
+
+
+                <!-- =================================================
+                     HIGH ROLLER
+                ================================================== -->
+
+                <div class="bet-group-title">
+                    🔴 HIGH ROLLER
+                </div>
+
+
+                <button
+                    type="button"
+                    class="bet-button"
+                    data-bet="70000"
+                    data-level="HIGH_ROLLER"
+                    {% if not high_roller_unlocked %}disabled{% endif %}
+                >
+                    70,000 AP
+                </button>
+
+
+                <button
+                    type="button"
+                    class="bet-button"
+                    data-bet="80000"
+                    data-level="HIGH_ROLLER"
+                    {% if not high_roller_unlocked %}disabled{% endif %}
+                >
+                    80,000 AP
+                </button>
+
+
+                <button
+                    type="button"
+                    class="bet-button"
+                    data-bet="99000"
+                    data-level="HIGH_ROLLER"
+                    {% if not high_roller_unlocked %}disabled{% endif %}
+                >
+                    99,000 AP
+                </button>
+
+            </div>
+
+        </details>
+
+    </div>
+
+
+    <!-- =====================================================
+         SPIN BUTTON
+    ====================================================== -->
+
+    <button
+        type="button"
+        class="spin-button"
+        id="spinButton"
+    >
+        🎡 SPIN
+    </button>
 
 </div>
 
 
-{% if unlocked %}
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+{% if safe_unlocked %}
 
 <script
     src="/static/js/fortune_wheel.js"
